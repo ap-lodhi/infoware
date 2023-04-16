@@ -1,8 +1,8 @@
 
 const Employee = require("../DataBase/schema")
 
- // For Addeing the  Emplyoees
-async function addEmployee(req,res){
+// For Addeing the  Emplyoees
+async function addEmployee(req, res) {
     let {
         fullName,
         jobTitle,
@@ -12,16 +12,16 @@ async function addEmployee(req,res){
         primaryEmergencyContact,
         emergencyPhoneNumber,
         relationship
-    } =req.body
+    } = req.body
 
-    const employee = await Employee.findOne({email})
-    if(employee){
+    const employee = await Employee.findOne({ email })
+    if (employee) {
         return res.status(404).send({
             response: 'error',
             message: 'Employee   Already Records'
 
         })
-    }else{
+    } else {
         await Employee.create({
             fullName,
             jobTitle,
@@ -42,13 +42,23 @@ async function addEmployee(req,res){
 }
 
 
-// for getting only  10 records from db 
-async function getEmployee(req,res){
-   const data = await Employee.find()
+// for getting only  5 records from db 
+async function limitEmployee(req, res) {
+    const data = await Employee.find().limit(5)
     console.log(data)
-    
-  return  res.status(200).send(data)
- 
+
+    return res.status(200).send(data)
+
+}
+
+
+// for getting All  records from db 
+async function getEmployee(req, res) {
+    const data = await Employee.find()
+    console.log(data)
+
+    return res.status(200).send(data)
+
 }
 
 
@@ -56,32 +66,34 @@ async function getEmployee(req,res){
 //for update  employee information 
 
 
-async function updateEmployee(req,res){
-    const {id} = req.params;
-    let {  fullName,
+async function updateEmployee(req, res) {
+    const { id } = req.params;
+    let { fullName,
         jobTitle,
         phoneNumber,
         email,
         addresses,
         primaryEmergencyContact,
         emergencyPhoneNumber,
-        relationship} = req.body
- 
-    const updated  = await Employee.findByIdAndUpdate
-    (id,{  fullName: fullName,
-        jobTitle:jobTitle,
-        phoneNumber:phoneNumber,
-        email:email,
-        addresses:addresses,
-        primaryEmergencyContact:primaryEmergencyContact,
-        emergencyPhoneNumber:emergencyPhoneNumber,
-        relationship:relationship})
-    if(!updated){
+        relationship } = req.body
+
+    const updated = await Employee.findByIdAndUpdate
+        (id, {
+            fullName: fullName,
+            jobTitle: jobTitle,
+            phoneNumber: phoneNumber,
+            email: email,
+            addresses: addresses,
+            primaryEmergencyContact: primaryEmergencyContact,
+            emergencyPhoneNumber: emergencyPhoneNumber,
+            relationship: relationship
+        })
+    if (!updated) {
         res.status(404).send({
             response: 'err',
             message: 'Emplyoee not found'
         })
-    }else{
+    } else {
         res.status(200).send({
             response: 'success',
             message: 'Emplyee Details updated Successfully'
@@ -91,27 +103,28 @@ async function updateEmployee(req,res){
 
 
 // Delete Emplyoee
-async function deleteEmplyoee(req,res){
-    const {id} = req.params;
+async function deleteEmplyoee(req, res) {
+    const { id } = req.params;
     console.log(id);
-    const deleted = await Employee.deleteOne({_id:id})
-    if(deleted){
+    const deleted = await Employee.deleteOne({ _id: id })
+    if (deleted) {
         res.status(200).send({
             response: 'success',
             message: 'Emplyoee Deleted Successfully'
         })
-    }else{
+    } else {
         res.status(404).send({
             response: 'error',
-            message: 'Task not found'
+            message: 'Employee not found'
         })
     }
 }
 
 
-module.exports={
+module.exports = {
     addEmployee,
     getEmployee,
+    limitEmployee,
     updateEmployee,
     deleteEmplyoee
 }
