@@ -4,19 +4,16 @@ const mongoose = require("mongoose")
 const employeeSchema = mongoose.Schema({
     fullName: String,
   jobTitle: String,
-  phoneNumber:String,
+  phoneNumber:Number,
   email:String,
-  addresses: [{
-    city: String,
-    state: String
-  }],
+  addresses :String,
   primaryEmergencyContact: String,
-  emergencyPhoneNumber:String,
+  emergencyPhoneNumber:Number,
   relationship:String
 
 },{
     timestamps:true
 })
 
-const Employee = mongoose.model("Tickers", employeeSchema)
+const Employee = mongoose.model("Employees", employeeSchema)
 module.exports=Employee;
