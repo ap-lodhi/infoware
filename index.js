@@ -1,6 +1,6 @@
 const express = require("express");
 const connectDb =require("./DataBase/db");
-const { addEmployee } = require("./controller/employee");
+const { addEmployee, getEmployee } = require("./controller/employee");
 
 
 
@@ -15,11 +15,13 @@ app.use(express.json());
 
 
 app.get('/', (req,res)=>{
-    res.send("hii")
+    res.send("EMPLOYEE DASHBOARD")
 
 })
 
 app.post("/addEmployee", addEmployee)
+
+app.get("/getEmployee", getEmployee)
 
 
 

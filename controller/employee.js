@@ -42,6 +42,16 @@ async function addEmployee(req,res){
 }
 
 
+
+async function getEmployee(req,res){
+   const data = await Employee.find()
+    console.log(data)
+    
+  return  res.send(data)
+ 
+}
+
 module.exports={
-    addEmployee
+    addEmployee,
+    getEmployee
 }
