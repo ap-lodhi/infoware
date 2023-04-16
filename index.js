@@ -1,6 +1,6 @@
 const express = require("express");
 const connectDb =require("./DataBase/db");
-const { addEmployee, getEmployee } = require("./controller/employee");
+const { addEmployee, getEmployee, updateEmployee, deleteEmplyoee } = require("./controller/employee");
 
 
 
@@ -22,6 +22,9 @@ app.get('/', (req,res)=>{
 app.post("/addEmployee", addEmployee)
 
 app.get("/getEmployee", getEmployee)
+
+app.patch("/update/:id", updateEmployee)
+app.delete("/delete/:id", deleteEmplyoee)
 
 
 
@@ -60,6 +63,16 @@ connectDb().then(()=>{
 
 
 /**
+ * {
+    "fullName": "suraj",
+ "jobTitle": "back-end Developer",
+  "phoneNumber":6267938362,
+  "email":"sk@gmail.com",
+ "addresses":"bangalore Madhya Pradesh",
+  "primaryEmergencyContact": "hariom",
+ "emergencyPhoneNumber":9993733415,
+  "relationship":"friend"
+} 
  * 
  * {
     "fullName": "Ram",
